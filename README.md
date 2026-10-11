@@ -13,7 +13,7 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 En Mac: `source .venv/bin/activate` en lugar de la línea del `Activate.ps1`.
 
-- Swagger (la documentación, como el `api-docs` del examen): http://localhost:8000/docs
+- Swagger: http://localhost:8000/docs
 - Listado: `GET http://localhost:8000/api/books`
 - Detalle: `GET http://localhost:8000/api/books/1`
 

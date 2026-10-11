@@ -13,3 +13,13 @@ class Book(BaseModel):
     synopsis: str
     rating: float = Field(ge=0, le=5)
     image_url: str
+
+
+
+class FavoriteBooks(BaseModel):
+    user_id: int =Field(gt=0)
+    books: list[Book]
+
+class User(BaseModel):
+    id: int = Field(gt=0)
+    name: str
