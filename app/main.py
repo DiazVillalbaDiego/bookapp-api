@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 
 from app.data import BOOKS, FAV_BOOKS, USERS
-from app.models import Book, User, FavoriteBooks
+from app.models import Book,BookList
 
 app = FastAPI(
     title="BookApp API",
@@ -9,12 +9,12 @@ app = FastAPI(
     version="1.0.0",
 )
 
-@app.get("/api/books", response_model=list[Book], tags=["books"])
+@app.get("/api/books", response_model=list[Book], tags=["Books"])
 def list_books() -> list[Book]:
     """Devuelve todos los libros del catálogo."""
     return BOOKS
 
-@app.get("/api/books/{book_id}", response_model=Book, tags=["books"])
+@app.get("/api/books/{book_id}", response_model=Book, tags=["Books"])
 def get_book(book_id: int) -> Book:
     """Devuelve el detalle de un libro por su id."""
     for book in BOOKS:
@@ -32,3 +32,7 @@ def get_fav(user_id: int) -> list[Book]:
             return fav.books
 
     return []
+
+@app.get("/api/catalog", response_model=BookList, tags=["Books"])
+def get_catalog() -> BookList:
+    return BookList(count=len(BOOKS), results=BOOKS)

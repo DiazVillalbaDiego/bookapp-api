@@ -21,3 +21,7 @@ class FavoriteBooks(BaseModel):
 class User(BaseModel):
     id: int = Field(gt=0)
     name: str
+
+class BookList(BaseModel):
+    count: int
+    results: list[Book]
