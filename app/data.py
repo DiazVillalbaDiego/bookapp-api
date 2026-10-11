@@ -1,10 +1,12 @@
-from app.models import Book, FavoriteBooks
+from app.models import Book, FavoriteBooks, User
 
 
 def _cover(seed: str) -> str:
     # Imagen de prueba estable (misma imagen para el mismo seed)
     return f"https://picsum.photos/seed/{seed}/300/450"
 
+def _books_by_ids(*ids: int) -> list[Book]:
+    return [book for book in BOOKS if book.id in ids]
 
 # Datos de práctica: los libros son reales, las calificaciones son inventadas
 # y las sinopsis son resúmenes cortos escritos para este ejercicio.
@@ -51,28 +53,16 @@ BOOKS: list[Book] = [
          rating=4.4, image_url=_cover("cronica-muerte")),
 ]
 
-fav_books: list[FavoriteBooks]=[
-    FavoriteBooks(user_id=1, books=[Book(id=10, title="Crónica de una muerte anunciada", author="Gabriel García Márquez", year=1981,
-             publisher="La Oveja Negra", genre="Novela",
-             synopsis="Todo el pueblo sabía que iban a matar a Santiago Nasar, y aun así nadie lo evitó.",
-             rating=4.4, image_url=_cover("cronica-muerte")), Book(id=7, title="Los ríos profundos", author="José María Arguedas", year=1958,
-                      publisher="Editorial Losada", genre="Novela",
-                      synopsis="Ernesto, un niño que viaja por los Andes, descubre el mundo quechua y el internado donde estudia.",
-                      rating=4.5, image_url=_cover("rios-profundos")) ]),
-    FavoriteBooks(user_id=2, books=[Book(id=2, title="La ciudad y los perros", author="Mario Vargas Llosa", year=1963,
-             publisher="Seix Barral", genre="Novela",
-             synopsis="La vida de un grupo de cadetes en un colegio militar de Lima y la violencia que los rodea.",
-             rating=4.5, image_url=_cover("ciudad-perros")) ]),
-    FavoriteBooks(user_id=3, books=[ Book(id=6, title="Rayuela", author="Julio Cortázar", year=1963,
-             publisher="Editorial Sudamericana", genre="Novela experimental",
-             synopsis="Una novela que se puede leer en más de un orden, entre París y Buenos Aires.",
-             rating=4.3, image_url=_cover("rayuela")),
-        Book(id=7, title="Los ríos profundos", author="José María Arguedas", year=1958,
-             publisher="Editorial Losada", genre="Novela",
-             synopsis="Ernesto, un niño que viaja por los Andes, descubre el mundo quechua y el internado donde estudia.",
-             rating=4.5, image_url=_cover("rios-profundos")),
-        Book(id=8, title="Fahrenheit 451", author="Ray Bradbury", year=1953,
-             publisher="Ballantine Books", genre="Ciencia ficción",
-             synopsis="En una sociedad donde los libros están prohibidos, un bombero empieza a dudar de su trabajo.",
-             rating=4.2, image_url=_cover("fahrenheit"))])
+FAV_BOOKS: list[FavoriteBooks] = [
+    FavoriteBooks(user_id=1, books=_books_by_ids(7, 10)),
+    FavoriteBooks(user_id=2, books=_books_by_ids(2)),
+    FavoriteBooks(user_id=3, books=_books_by_ids(6, 7, 8)),
+]
+
+USERS: list[User]=[
+    User(id=1, name="Diego Diaz"),
+    User(id=2, name= "Oscar Vasquez"),
+    User(id=3, name="Salym Galvez"),
+    User(id=4, name="Dario Avila"),
+    User(id=5, name="Diego Esquicha")
 ]

@@ -14,8 +14,6 @@ class Book(BaseModel):
     rating: float = Field(ge=0, le=5)
     image_url: str
 
-
-
 class FavoriteBooks(BaseModel):
     user_id: int =Field(gt=0)
     books: list[Book]
